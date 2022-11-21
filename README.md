@@ -1,3 +1,3 @@
 # Fancy-DEMMZ
-hello world
+Duco Heeres
 Marnix Hendriks
