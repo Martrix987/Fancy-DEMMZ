@@ -16,3 +16,4 @@ else:
     else:
         print('Cool ik niet :)')
 print('Nou dat was leuk, verwijder dit wel als je ook echt aan het project gaat werken!')
+print('Github mag mijn reet zuigen')
