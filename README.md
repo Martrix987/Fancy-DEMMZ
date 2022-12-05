@@ -4,3 +4,6 @@ Marnix Hendriks,    AKA: Martrix987
 Zubeer Abdullahi,   AKA: Zubeer12
 Mees Man,           AKA: MeesBo
 Eren Soysal,        AKA: ErenSoysal38
+
+
+Een digitaal overzicht/dashboard voor het project 'Steam'
