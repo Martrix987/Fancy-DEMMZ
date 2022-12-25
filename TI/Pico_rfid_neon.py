@@ -10,8 +10,70 @@ neon = neopixel.NeoPixel(machine.Pin(13), 8)
 reader = MFRC522(spi_id=0,sck=2,miso=4,mosi=3,cs=1,rst=0)
 temp = 0
 
-print("Bring TAG closer...")
-print("")
+
+def red_neon_led():
+    neon[0] = [50, 0, 0]
+    neon[1] = [50, 0, 0]
+    neon[2] = [50, 0, 0]
+    neon[3] = [50, 0, 0]
+    neon[4] = [50, 0, 0]
+    neon[5] = [50, 0, 0]
+    neon[6] = [50, 0, 0]
+    neon[7] = [50, 0, 0]
+    neon.write()
+    
+def green_neon_led():
+    neon[0] = [0, 50, 0]
+    neon[1] = [0, 50, 0]
+    neon[2] = [0, 50, 0]
+    neon[3] = [0, 50, 0]
+    neon[4] = [0, 50, 0]
+    neon[5] = [0, 50, 0]
+    neon[6] = [0, 50, 0]
+    neon[7] = [0, 50, 0]
+    neon.write()
+    
+def black_neon_led():
+    neon[0] = [0, 0, 0]
+    neon[1] = [0, 0, 0]
+    neon[2] = [0, 0, 0]
+    neon[3] = [0, 0, 0]
+    neon[4] = [0, 0, 0]
+    neon[5] = [0, 0, 0]
+    neon[6] = [0, 0, 0]
+    neon[7] = [0, 0, 0]
+    neon.write()
+
+def loading_neon_led():
+    neon[0] = [0, 0, 50]
+    time.sleep(0.05)
+    neon.write()
+    neon[1] = [0, 0, 50]
+    time.sleep(0.05)
+    neon.write()
+    neon[2] = [0, 0, 50]
+    time.sleep(0.05)
+    neon.write()
+    neon[3] = [0, 0, 50]
+    time.sleep(0.05)
+    neon.write()
+    neon[4] = [0, 0, 50]
+    time.sleep(0.05)
+    neon.write()
+    neon[5] = [0, 0, 50]
+    time.sleep(0.05)
+    neon.write()
+    neon[6] = [0, 0, 50]
+    time.sleep(0.05)
+    neon.write()
+    neon[7] = [0, 0, 50]
+    neon.write()
+    time.sleep(0.125)
+
+
+
+black_neon_led()
+print("Bring TAG closer... \n")
 
 
 while True:
@@ -20,79 +82,24 @@ while True:
     if stat == reader.OK:
         (stat, uid) = reader.SelectTagSN()
         if stat == reader.OK:
-            neon[0] = [0, 0, 50]
-            time.sleep(0.1)
-            neon.write()
-            neon[1] = [0, 0, 50]
-            time.sleep(0.1)
-            neon.write()
-            neon[2] = [0, 0, 50]
-            time.sleep(0.1)
-            neon.write()
-            neon[3] = [0, 0, 50]
-            time.sleep(0.1)
-            neon.write()
-            neon[4] = [0, 0, 50]
-            time.sleep(0.1)
-            neon.write()
-            neon[5] = [0, 0, 50]
-            time.sleep(0.1)
-            neon.write()
-            neon[6] = [0, 0, 50]
-            time.sleep(0.1)
-            neon.write()
-            neon[7] = [0, 0, 50]
-            neon.write()
-            time.sleep(0.1)
-            
-            
+            loading_neon_led()
             card = int.from_bytes(bytes(uid),"little",False)
             print("CARD ID: "+str(card))
-            print(str(uid))
+            #print(str(uid))
             if card in RFID_ID:
-                print('autorized')
-                neon[0] = [0, 50, 0]
-                neon[1] = [0, 50, 0]
-                neon[2] = [0, 50, 0]
-                neon[3] = [0, 50, 0]
-                neon[4] = [0, 50, 0]
-                neon[5] = [0, 50, 0]
-                neon[6] = [0, 50, 0]
-                neon[7] = [0, 50, 0]
-                neon.write()
-                time.sleep(1)
-                neon[0] = [0, 0, 0]
-                neon[1] = [0, 0, 0]
-                neon[2] = [0, 0, 0]
-                neon[3] = [0, 0, 0]
-                neon[4] = [0, 0, 0]
-                neon[5] = [0, 0, 0]
-                neon[6] = [0, 0, 0]
-                neon[7] = [0, 0, 0]
+                print('Unlocked.')
+                green_neon_led()
+                time.sleep(2)
+                black_neon_led()
+                
             else:
-                print('not')
-                neon[0] = [50, 0, 0]
-                neon[1] = [50, 0, 0]
-                neon[2] = [50, 0, 0]
-                neon[3] = [50, 0, 0]
-                neon[4] = [50, 0, 0]
-                neon[5] = [50, 0, 0]
-                neon[6] = [50, 0, 0]
-                neon[7] = [50, 0, 0]
-                neon.write() 
-                time.sleep(1)
-                neon[0] = [0, 0, 0]
-                neon[1] = [0, 0, 0]
-                neon[2] = [0, 0, 0]
-                neon[3] = [0, 0, 0]
-                neon[4] = [0, 0, 0]
-                neon[5] = [0, 0, 0]
-                neon[6] = [0, 0, 0]
-                neon[7] = [0, 0, 0]
+                print('Wrong or unrecognized RFID signal.')
+                red_neon_led()
+                time.sleep(2)
+                black_neon_led()
             
 
 
-utime.sleep_ms(500)
 
 
 
